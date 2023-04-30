@@ -6,3 +6,26 @@ card_values = {'Ace': 11, '2': 2, '3': 3, '4': 4, '5': 5, '6': 6, '7': 7,
 
 # Define deck
 deck = list(card_values.keys()) * 4
+
+# Base chip value and player's chips
+base_chip_value = 500
+player_chips = base_chip_value
+
+# Bet function
+def place_bet():
+    global player_chips
+    while True:
+        bet = input(f'You have {player_chips} chips. How much do you want to bet? ')
+        if not bet.isdigit():
+            print('Invalid input. Please enter a valid number.')
+        elif int(bet) > player_chips:
+            print(f'You don\'t have enough chips. You have {player_chips} chips.')
+        else:
+            player_chips -= int(bet)
+            return int(bet)
+
+# Main
+def play_game():
+    global player_chips
+    while True:
+        bet = place_bet()
