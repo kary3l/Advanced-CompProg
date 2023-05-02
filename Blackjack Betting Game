@@ -24,8 +24,27 @@ def place_bet():
             player_chips -= int(bet)
             return int(bet)
 
+# Deal cards from deck
+def deal_cards():
+    hand = []
+    for i in range(2):
+        card = random.choice(deck)
+        hand.append(card)
+        deck.remove(card)
+    return hand
+
 # Main
 def play_game():
     global player_chips
     while True:
         bet = place_bet()
+        player_hand = deal_cards()
+        dealer_hand = deal_cards()
+        
+        # Ask if the player wants to play again
+        choice = input('Do you want to play again? ')
+        if choice.lower() == 'no':
+            print('Thanks for playing!')
+            break
+            
+ play_game()
