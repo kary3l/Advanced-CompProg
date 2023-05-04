@@ -40,11 +40,23 @@ def play_game():
         bet = place_bet()
         player_hand = deal_cards()
         dealer_hand = deal_cards()
+        print(f'Your hand: {player_hand}')
+        print(f'Dealer\'s hand: [{dealer_hand[0]}, ?]')
         
         # Ask if the player wants to play again
-        choice = input('Do you want to play again? ')
-        if choice.lower() == 'no':
-            print('Thanks for playing!')
+        play_cont = 1
+        while True:
+            choice = input('Do you want to play again? [yes/no]')
+            if choice.lower() == 'yes':
+                play_cont = 1
+                break
+            elif choice.lower() == 'no':
+                print('Thanks for playing!')
+                play_cont = 0
+                break
+            else:
+                print('Wrong Input, Please try again.')
+        if play_cont == 0:
             break
             
  play_game()
