@@ -1,2 +1,2 @@
 # Advanced-CompProg
-Final Project requirements for Advanced Computer Project BSU Alangilan
+Final Project requirements for Advanced Computer Programming Project BSU Alangilan
