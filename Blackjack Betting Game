@@ -32,16 +32,64 @@ def deal_cards():
         hand.append(card)
         deck.remove(card)
     return hand
+    
+# Hit function
+def hit(hand):
+    card = random.choice(deck)
+    hand.append(card)
+    deck.remove(card)
+    return hand
 
-# Main
+# Define the calculate_score function
+def calculate_score(hand):
+    score = 0
+    aces = 0
+    for card in hand:
+        score += card_values[card]
+        if card == 'Ace':
+            aces += 1
+    while score > 21 and aces:
+        score -= 10
+        aces -= 1
+    return score
+
+# Main Game
 def play_game():
     global player_chips
     while True:
+        #Betting
         bet = place_bet()
+        
+        #Dealing
         player_hand = deal_cards()
         dealer_hand = deal_cards()
         print(f'Your hand: {player_hand}')
         print(f'Dealer\'s hand: [{dealer_hand[0]}, ?]')
+        
+        #Player Choices Prompt
+        while True:
+            choice = input('Do you want to hit, stand, double down, or fold? ')
+            if choice.lower() == 'hit':
+                player_hand = hit(player_hand)
+                print(f'Your hand: {player_hand}')
+                if calculate_score(player_hand) > 21:
+                    print('You bust!')
+                    break
+            elif choice.lower() == 'stand':
+                break
+            else:
+                print('Invalid input. Please enter "hit", "stand", "double down", or "fold')
+        
+        # Dealer Action
+        if calculate_score(player_hand) <= 21:
+            print(f'Dealer\'s hand: {dealer_hand}')
+            while calculate_score(dealer_hand) < 17:
+                dealer_hand = hit(dealer_hand)
+                print(f'Dealer hits. Dealer\'s hand: {dealer_hand}')
+                if calculate_score(dealer_hand) > 21:
+                    print('Dealer busts!')
+                    player_chips += bet * 2
+                    break
         
         # Ask if the player wants to play again
         play_cont = 1
@@ -59,4 +107,4 @@ def play_game():
         if play_cont == 0:
             break
             
- play_game()
+play_game()
