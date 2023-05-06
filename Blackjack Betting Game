@@ -63,8 +63,8 @@ def play_game():
         #Dealing
         player_hand = deal_cards()
         dealer_hand = deal_cards()
-        print(f'Your hand: {player_hand}')
-        print(f'Dealer\'s hand: [{dealer_hand[0]}, ?]')
+        print("Player's hand:", player_hand, "Value:", calculate_score(player_hand))
+        print("Dealer's hand:", [dealer_hand[0], '??'], "Value: ??")
         
         #Player Choices Prompt
         while True:
@@ -94,11 +94,11 @@ def play_game():
         # Ask if the player wants to play again
         play_cont = 1
         while True:
-            choice = input('Do you want to play again? [yes/no]')
-            if choice.lower() == 'yes':
+            choice = input('Do you want to play again? [Y/N]')
+            if choice.lower() == 'y':
                 play_cont = 1
                 break
-            elif choice.lower() == 'no':
+            elif choice.lower() == 'n':
                 print('Thanks for playing!')
                 play_cont = 0
                 break
