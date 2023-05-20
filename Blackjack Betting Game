@@ -1,4 +1,5 @@
 import random
+import time
 import os
 
 #Clear Screen Function
@@ -64,6 +65,7 @@ def play_game():
     while True:
         # Betting
         bet = place_bet()
+        clear()
         
         # Dealing
         player_hand = deal_cards()
@@ -73,32 +75,46 @@ def play_game():
         
         # Player Choices Prompt
         while True:
-            choice = input('Do you want to hit, stand, double down, or fold? ')
+            choice = input('\nDo you want to hit, stand, double down, or fold? ')
             if choice.lower() == 'hit':
                 player_hand = hit(player_hand)
-                print(f'Your hand: {player_hand} Value: {calculate_score(player_hand)}')
+                clear()
+                print(f'Player chose to hit')
+                time.sleep(3)
+                print(f'\nYour hand: {player_hand} Value: {calculate_score(player_hand)}')
+                print("Dealer's hand:", [dealer_hand[0], '??'], "Value: ??")
                 if calculate_score(player_hand) > 21:
-                    print('You bust!')
+                    print('\nYou bust!')
+                    input("\nPress Enter to continue...")
+                    clear()
                     break
             elif choice.lower() == 'stand':
+                clear()
+                print(f'Player chose to stand')
+                time.sleep(3)
                 break
             else:
                 print('Invalid input. Please enter "hit", "stand", "double down", or "fold')
         
         # Dealer action
         if calculate_score(player_hand) <= 21:
-            print(f'Dealer\'s hand: {dealer_hand}')
+            print(f'\nPlayer\'s hand: {player_hand} Value: {calculate_score(player_hand)}\n')
+            time.sleep(3)
+            print(f'Dealer\'s hand: {dealer_hand} Value: {calculate_score(dealer_hand)}\n')
             while calculate_score(dealer_hand) < 17:
+                time.sleep(3)
                 dealer_hand = hit(dealer_hand)
-                print(f'Dealer hits. Dealer\'s hand: {dealer_hand} Value: {calculate_score(dealer_hand)}')
+                print(f'Dealer hits. Dealer\'s hand: {dealer_hand} Value: {calculate_score(dealer_hand)}\n')
                 if calculate_score(dealer_hand) > 21:
-                    print('Dealer busts!')
+                    print('Dealer busts!\n')
+                    input("\nPress Enter to continue...")
+                    clear()
                     break
         
         # Calculate win, lose, or tie
         player_score = calculate_score(player_hand)
         dealer_score = calculate_score(dealer_hand)
-        print(f'\nPlayer hand is {player_score}')
+        print(f'Player hand is {player_score}')
         print(f'Dealer hand is {dealer_score}\n')
         if player_score <= 21 and (player_score > dealer_score or dealer_score > 21):
             print('You win!')
@@ -110,16 +126,20 @@ def play_game():
             player_chips += bet
         else:
             print('Error')
-        
+            
         # Play again player prompt
+        input("\nPress Enter to continue...")
+        clear()
+        print(f'You have {player_chips} remaining')
         play_cont = 1
         while True:
-            choice = input('Do you want to play again? [Y/N]')
+            choice = input('\nDo you want to play again? [Y/N]')
             if choice.lower() == 'y':
                 play_cont = 1
+                clear()
                 break
             elif choice.lower() == 'n':
-                print('Thanks for playing!')
+                print('\nThanks for playing!')
                 play_cont = 0
                 break
             else:
