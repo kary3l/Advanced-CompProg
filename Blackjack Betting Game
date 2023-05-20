@@ -58,11 +58,24 @@ def calculate_score(hand):
         score -= 10
         aces -= 1
     return score
-
+    
+#Game over function
+def game_over():
+    global player_chips
+    print('\nYou have run out of chips.')
+    print('Game over!')
+    print('Thanks for playing!')
+    time.sleep(2)
+    clear()
+        
 # Main game
 def play_game():
     global player_chips
     while True:
+        if player_chips <= 0:
+            game_over()
+            break
+
         # Betting
         bet = place_bet()
         clear()
@@ -127,6 +140,25 @@ def play_game():
         else:
             print('Error')
             
+# Main game loop
+is_running = True
+while is_running:
+    print("\nWelcome to Blackjack!")
+    print("\nPlay Game [Press 1]")
+    print("\nPlaceholder [Press 2]")
+    print("\nQuit [Press 3]")
+    choice = input()
+    if choice == "1":
+            play_game()
+            if player_chips <= 0:
+                game_over()
+                continue
+    elif choice == "3":
+        print("Thanks for playing!")
+        is_running = False
+    else:
+        print("Invalid choice. Please try again.")
+        
         # Play again player prompt
         input("\nPress Enter to continue...")
         clear()
@@ -146,5 +178,5 @@ def play_game():
                 print('Wrong Input, Please try again.')
         if play_cont == 0:
             break
-            
-play_game()
+
+# End of program
