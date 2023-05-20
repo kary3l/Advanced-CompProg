@@ -13,10 +13,6 @@ card_values = {'Ace': 11, '2': 2, '3': 3, '4': 4, '5': 5, '6': 6, '7': 7,
 # Define deck
 deck = list(card_values.keys()) * 4
 
-# Base chip value and player's chips
-base_chip_value = 500
-player_chips = base_chip_value
-
 # Bet function
 def place_bet():
     global player_chips
@@ -62,15 +58,14 @@ def calculate_score(hand):
 #Game over function
 def game_over():
     global player_chips
-    print('\nYou have run out of chips.')
-    print('Game over!')
-    print('Thanks for playing!')
-    time.sleep(2)
+    print('\nGame Over!')
+    input('You do not have chips to play... press Enter to return to main menu')
     clear()
         
 # Main game
 def play_game():
     global player_chips
+    player_chips = 500
     while True:
         if player_chips <= 0:
             game_over()
@@ -98,35 +93,34 @@ def play_game():
                 print("Dealer's hand:", [dealer_hand[0], '??'], "Value: ??")
                 if calculate_score(player_hand) > 21:
                     print('\nYou bust!')
-                    input("\nPress Enter to continue...")
-                    clear()
                     break
             elif choice.lower() == 'stand':
                 clear()
                 print(f'Player chose to stand')
-                time.sleep(3)
+                time.sleep(1)
                 break
             else:
                 print('Invalid input. Please enter "hit", "stand", "double down", or "fold')
         
         # Dealer action
         if calculate_score(player_hand) <= 21:
-            print(f'\nPlayer\'s hand: {player_hand} Value: {calculate_score(player_hand)}\n')
+            print(f'\nPlayer\'s hand: {player_hand} Value: {calculate_score(player_hand)}')
             time.sleep(3)
             print(f'Dealer\'s hand: {dealer_hand} Value: {calculate_score(dealer_hand)}\n')
             while calculate_score(dealer_hand) < 17:
                 time.sleep(3)
                 dealer_hand = hit(dealer_hand)
-                print(f'Dealer hits. Dealer\'s hand: {dealer_hand} Value: {calculate_score(dealer_hand)}\n')
+                print(f'Dealer hits. Dealer\'s hand: {dealer_hand} Value: {calculate_score(dealer_hand)}')
                 if calculate_score(dealer_hand) > 21:
-                    print('Dealer busts!\n')
-                    input("\nPress Enter to continue...")
-                    clear()
+                    print('Dealer busts!')
                     break
+        input("\nPress Enter to continue...")
+        clear()
         
         # Calculate win, lose, or tie
         player_score = calculate_score(player_hand)
         dealer_score = calculate_score(dealer_hand)
+        print('Results:\n')
         print(f'Player hand is {player_score}')
         print(f'Dealer hand is {dealer_score}\n')
         if player_score <= 21 and (player_score > dealer_score or dealer_score > 21):
@@ -140,43 +134,38 @@ def play_game():
         else:
             print('Error')
             
-# Main game loop
-is_running = True
-while is_running:
-    print("\nWelcome to Blackjack!")
-    print("\nPlay Game [Press 1]")
-    print("\nPlaceholder [Press 2]")
-    print("\nQuit [Press 3]")
-    choice = input()
-    if choice == "1":
-            play_game()
-            if player_chips <= 0:
-                game_over()
-                continue
-    elif choice == "3":
-        print("Thanks for playing!")
-        is_running = False
-    else:
-        print("Invalid choice. Please try again.")
-        
-        # Play again player prompt
-        input("\nPress Enter to continue...")
-        clear()
+        # Play again player prompt or Game Over
         print(f'You have {player_chips} remaining')
-        play_cont = 1
+        if player_chips <= 0:
+            game_over()
+            return
         while True:
             choice = input('\nDo you want to play again? [Y/N]')
             if choice.lower() == 'y':
-                play_cont = 1
                 clear()
                 break
             elif choice.lower() == 'n':
-                print('\nThanks for playing!')
-                play_cont = 0
-                break
+                input('\nReturning to main menu screen... press Enter to continue')
+                return
             else:
                 print('Wrong Input, Please try again.')
-        if play_cont == 0:
-            break
+            
+# Main game loop
+while True:
+    print("Welcome to Blackjack!")
+    print("\nPlay Game [Press 1]")
+    print("Placeholder [Press 2]")
+    print("Quit [Press 3]")
+    choice = input('\nWhat would you like to do: ')
+    if choice == "1":
+            clear()
+            play_game()
+    elif choice == "3":
+        print("Thanks for playing!")
+        break
+    else:
+        print("\nInvalid choice. Please try again.")
+        time.sleep(3)
+        clear()
 
 # End of program
