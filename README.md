@@ -1,12 +1,18 @@
 # Advanced-CompProg
 Final Project requirements for Advanced Computer Programming Project BSU Alangilan
 
-Membees:
+Members:
+
 Crisologo, Aaron Angelo
+
 Calalo, Homer
+
 Ibasan, Karl Alexis
+
 Lagradilla, Jaymarc
+
 Madera, Harvey
+
 
 Contributions:
 
