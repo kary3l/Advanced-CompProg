@@ -66,11 +66,8 @@ def game_over():
 def play_game():
     global player_chips
     player_chips = 500
+    
     while True:
-        if player_chips <= 0:
-            game_over()
-            break
-
         # Betting
         bet = place_bet()
         clear()
@@ -81,7 +78,8 @@ def play_game():
         print("Player's hand:", player_hand, "Value:", calculate_score(player_hand))
         print("Dealer's hand:", [dealer_hand[0], '??'], "Value: ??")
         
-        # Player Choices Prompt
+        # Player Choices Prompt first turn
+        skp2trn = 0
         while True:
             choice = input('\nDo you want to hit, stand, double down, or fold? ')
             if choice.lower() == 'hit':
@@ -93,14 +91,40 @@ def play_game():
                 print("Dealer's hand:", [dealer_hand[0], '??'], "Value: ??")
                 if calculate_score(player_hand) > 21:
                     print('\nYou bust!')
+                    skp2trn = 1
                     break
+                break
             elif choice.lower() == 'stand':
                 clear()
                 print(f'Player chose to stand')
+                skp2trn = 1
                 time.sleep(1)
                 break
             else:
                 print('Invalid input. Please enter "hit", "stand", "double down", or "fold')
+            
+        # Player Choice Prompt after first turn
+        if skp2trn == 0:
+            while True:
+                choice = input('\nDo you want to hit or stand? ')
+                if choice.lower() == 'hit':
+                    player_hand = hit(player_hand)
+                    clear()
+                    print(f'Player chose to hit')
+                    time.sleep(3)
+                    print(f'\nYour hand: {player_hand} Value: {calculate_score(player_hand)}')
+                    print("Dealer's hand:", [dealer_hand[0], '??'], "Value: ??")
+                    if calculate_score(player_hand) > 21:
+                        print('\nYou bust!')
+                        break
+                elif choice.lower() == 'stand':
+                    clear()
+                    print(f'Player chose to stand')
+                    time.sleep(1)
+                    break
+                else:
+                    print('Invalid input. Please enter "hit", "stand", "double down", or "fold')
+        
         
         # Dealer action
         if calculate_score(player_hand) <= 21:
@@ -135,20 +159,24 @@ def play_game():
             print('Error')
             
         # Play again player prompt or Game Over
-        print(f'You have {player_chips} remaining')
+        print(f'You have {player_chips} remaining\n')
         if player_chips <= 0:
             game_over()
+            clear()
             return
         while True:
-            choice = input('\nDo you want to play again? [Y/N]')
+            choice = input('Do you want to play again? [Y/N]')
             if choice.lower() == 'y':
                 clear()
                 break
             elif choice.lower() == 'n':
                 input('\nReturning to main menu screen... press Enter to continue')
+                clear()
                 return
             else:
                 print('Wrong Input, Please try again.')
+                time.sleep(2)
+                clear()
             
 # Main game loop
 while True:
