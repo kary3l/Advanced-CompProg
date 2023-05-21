@@ -1,29 +1,28 @@
 # Advanced-CompProg
 Final Project requirements for Advanced Computer Programming Project BSU Alangilan
 
-Members:
+# Members:
 
-Crisologo, Aaron Angelo
+**Crisologo, Aaron Angelo**
 
-Calalo, Homer
+**Calalo, Homer**
 
-Ibasan, Karl Alexis
+**Ibasan, Karl Alexis**
 
-Lagradilla, Jaymarc
+**Lagradilla, Jaymarc**
 
-Madera, Harvey
+**Madera, Harvey**
 
+# Contributions:
 
-Contributions:
+**Crisologo** - Group leader, main concept of the project, wrote play_game(), place_bet(), deal_cards(), hit, and calculate_score() functions, supervised all pull request, assigned tasks for each group member, video presentation editor.
 
-Crisologo - Group leader, main concept of the project, wrote play_game(), place_bet(), deal_cards(), hit, and calculate_score() functions, supervised all pull request, assigned tasks for each group member, video presentation editor.
+**Calalo** - Fold Feature in player choice prompt
 
-Calalo - Fold Feature in player choice prompt
+**Ibasan** - Double Down Feature in player choice prompt
 
-Ibasan - Double Down Feature in player choice prompt
+**Lagradilla** - Auto-win blackjack funtion
 
-Lagradilla - 
+**Madera** - Main Menu Screen, Game Over Screen, Various improvements in play_game() function.
 
-Madera - Main Menu Screen, Game Over Screen, Various improvements in plat_game() function.
-
-Video Presentation Link:
+# Video Presentation Link:
